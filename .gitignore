@@ -1,0 +1,28 @@
+#################
+## CCAFS-Climate
+#################
+/config/config.php
+/config/downloads/chirps/*
+/bias_tmp/*
+
+# Smarthy
+/templates_c/
+
+# Netbeans
+/nbproject/
+/core/
+
+# Eclipse
+.buildpath
+.project
+.settings*
+stations/config/*
+stations/config/db_ccafs_climate.php
+downloads/data_stations/*
+/config/smarty.php
+/config/db.php
+/stations/config/*.php
+/stations/config/db_ccafs_climate.php
+/stations/config/db_config.php
+/stations/config/db_chirps.php
+/pages/oai2/oaidp-config.php
