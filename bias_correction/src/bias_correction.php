@@ -126,27 +126,51 @@ $output=shell_exec($cmd);
 
 #zip_download($final_name);
 #rmdir($final_name);
+if(file_exists($workspace.".zip")){
+    # email to download data
+    $email_name = "/var/www/html/assets/emails/finished.html";
+    $email_file = fopen($email_name, "r") or die("Unable to open file!");
+    $email_text = fread($email_file,filesize($email_name));
+    fclose($email_file);
+    $email_text = str_replace("#1#",$order,$email_text);
+    $email_text = str_replace("#2#",$email,$email_text);
+    $email_text = str_replace("#3#",$date." ".$time,$email_text);
+    $email_text = str_replace("#4#",getData('lon'),$email_text);
+    $email_text = str_replace("#5#",getData('lat'),$email_text);
+    $email_text = str_replace("#6#",$rcpList,$email_text);
+    $email_text = str_replace("#7#",$dataset,$email_text);
+    $email_text = str_replace("#8#",$Obyi." - ".$Obyf,$email_text);
+    $email_text = str_replace("#9#",$fuyi,$email_text);
+    $email_text = str_replace("#10#",$fuyf,$email_text);
+    $email_text = str_replace("#11#",$varlist,$email_text);
+    $email_text = str_replace("#12#",$gcmlist,$email_text);
+    $email_text = str_replace("#13#",$methBCList,$email_text);
+    $email_text = str_replace("#14#",$downData.$date."/".$final_name.".zip",$email_text);
+    send_msg("CCAFS Climate - Bias Correction done",$email_text,$email);
+} else{
+    # email to show error
+    $email_name = "/var/www/html/assets/emails/error.html";
+    $email_file = fopen($email_name, "r") or die("Unable to open file!");
+    $email_text = fread($email_file,filesize($email_name));
+    fclose($email_file);
+    $email_text = str_replace("#1#",$order,$email_text);
+    $email_text = str_replace("#2#",$email,$email_text);
+    $email_text = str_replace("#3#",$date." ".$time,$email_text);
+    $email_text = str_replace("#4#",getData('lon'),$email_text);
+    $email_text = str_replace("#5#",getData('lat'),$email_text);
+    $email_text = str_replace("#6#",$rcpList,$email_text);
+    $email_text = str_replace("#7#",$dataset,$email_text);
+    $email_text = str_replace("#8#",$Obyi." - ".$Obyf,$email_text);
+    $email_text = str_replace("#9#",$fuyi,$email_text);
+    $email_text = str_replace("#10#",$fuyf,$email_text);
+    $email_text = str_replace("#11#",$varlist,$email_text);
+    $email_text = str_replace("#12#",$gcmlist,$email_text);
+    $email_text = str_replace("#13#",$methBCList,$email_text);
+    $email_text = str_replace("#14#","ERROR",$email_text);
+    send_msg("CCAFS Climate - Bias Correction - Error",$email_text,$email);
+}
 
-# email to download data
-$email_name = "/var/www/html/assets/emails/finished.html";
-$email_file = fopen($email_name, "r") or die("Unable to open file!");
-$email_text = fread($email_file,filesize($email_name));
-fclose($email_file);
-$email_text = str_replace("#1#",$order,$email_text);
-$email_text = str_replace("#2#",$email,$email_text);
-$email_text = str_replace("#3#",$date." ".$time,$email_text);
-$email_text = str_replace("#4#",getData('lon'),$email_text);
-$email_text = str_replace("#5#",getData('lat'),$email_text);
-$email_text = str_replace("#6#",$rcpList,$email_text);
-$email_text = str_replace("#7#",$dataset,$email_text);
-$email_text = str_replace("#8#",$Obyi." - ".$Obyf,$email_text);
-$email_text = str_replace("#9#",$fuyi,$email_text);
-$email_text = str_replace("#10#",$fuyf,$email_text);
-$email_text = str_replace("#11#",$varlist,$email_text);
-$email_text = str_replace("#12#",$gcmlist,$email_text);
-$email_text = str_replace("#13#",$methBCList,$email_text);
-$email_text = str_replace("#14#",$downData.$date."/".$final_name.".zip",$email_text);
-send_msg("CCAFS Climate - Bias Correction done",$email_text,$email);
+
 
 echo "<br /><h1>Output</h1><br />";
 echo $output;
