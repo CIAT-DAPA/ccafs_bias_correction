@@ -165,8 +165,8 @@ if(file_exists($workspace.".zip")){
     $email_text = str_replace("#10#",$fuyf,$email_text);
     $email_text = str_replace("#11#",$varlist,$email_text);
     $email_text = str_replace("#12#",$gcmlist,$email_text);
-    $email_text = str_replace("#13#",$methBCList,$email_text);
-    $email_text = str_replace("#14#","ERROR",$email_text);
+    $email_text = str_replace("#13#",$methBCList,$email_text);    
+    $email_text = str_replace("#14#",$workspace,$email_text);    
     send_msg("CCAFS Climate - Bias Correction - Error",$email_text,$email);
 }
 
